@@ -37,37 +37,37 @@ list_all_versions() {
 }
 
 download_release() {
-  local version filename url
-  version="$1"
-  filename="$2"
+	local version filename url
+	version="$1"
+	filename="$2"
 
-  local arch
-  arch=$(uname -m | tr '[:upper:]' '[:lower:]')
-  local kernel
-  kernel=$(uname -s | tr '[:upper:]' '[:lower:]')
-  case "${arch}-${kernel}" in
-  aarch64-linux)
-    url="$GH_REPO/releases/download/v${version}/atuin-v${version}-aarch64-unknown-linux-musl.tar.gz"
-    ;;
-  arm64-linux)
-    url="$GH_REPO/releases/download/v${version}/atuin-v${version}-aarch64-unknown-linux-musl.tar.gz"
-    ;;
-  arm64-darwin)
-    url="$GH_REPO/releases/download/v${version}/atuin-v${version}-aarch64-apple-darwin.tar.gz"
-    ;;
-  x86_64-linux)
-    url="$GH_REPO/releases/download/v${version}/atuin-v${version}-x86_64-unknown-linux-musl.tar.gz"
-    ;;
-  x86_64-darwin)
-    url="$GH_REPO/releases/download/v${version}/atuin-v${version}-x86_64-apple-darwin.tar.gz"
-    ;;
-  *)
-    fail "Could not determine release URL"
-    ;;
-  esac
+	local arch
+	arch=$(uname -m | tr '[:upper:]' '[:lower:]')
+	local kernel
+	kernel=$(uname -s | tr '[:upper:]' '[:lower:]')
+	case "${arch}-${kernel}" in
+	aarch64-linux)
+		url="$GH_REPO/releases/download/v${version}/atuin-v${version}-aarch64-unknown-linux-musl.tar.gz"
+		;;
+	arm64-linux)
+		url="$GH_REPO/releases/download/v${version}/atuin-v${version}-aarch64-unknown-linux-musl.tar.gz"
+		;;
+	arm64-darwin)
+		url="$GH_REPO/releases/download/v${version}/atuin-v${version}-aarch64-apple-darwin.tar.gz"
+		;;
+	x86_64-linux)
+		url="$GH_REPO/releases/download/v${version}/atuin-v${version}-x86_64-unknown-linux-musl.tar.gz"
+		;;
+	x86_64-darwin)
+		url="$GH_REPO/releases/download/v${version}/atuin-v${version}-x86_64-apple-darwin.tar.gz"
+		;;
+	*)
+		fail "Could not determine release URL"
+		;;
+	esac
 
-  echo "* Downloading $TOOL_NAME release $version..."
-  curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
+	echo "* Downloading $TOOL_NAME release $version..."
+	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
 }
 
 install_version() {
